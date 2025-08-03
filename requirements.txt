@@ -1,8 +1,8 @@
 streamlit
-python-dotenv
 langchain
+python-dotenv
 faiss-cpu
-pypdf
-huggingface_hub
+huggingface-hub
 sentence-transformers
 together
+PyPDF2
