@@ -87,3 +87,4 @@ if st.session_state.chat_history:
         st.markdown(f"**You:** {chat['query']}")
         st.markdown(f"**Bot:** {chat['response']}")
         st.markdown("---")
+
