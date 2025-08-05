@@ -15,18 +15,25 @@ PDF_PATH = "Arogya Sanjeevani Policy.pdf"
 
 # Cache and load vectorstore
 @st.cache_resource
+@st.cache_resource
 def load_vectorstore():
     if not os.path.exists(PDF_PATH):
         raise FileNotFoundError(f"PDF not found at {PDF_PATH}")
     
-    loader = PyPDFLoader(PDF_PATH)
-    pages = loader.load()
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
-    chunks = splitter.split_documents(pages)
-
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-    vectordb = FAISS.from_documents(chunks, embeddings)
+    
+    if os.path.exists("faiss_index"):
+        vectordb = FAISS.load_local("faiss_index", embeddings)
+    else:
+        loader = PyPDFLoader(PDF_PATH)
+        pages = loader.load()
+        splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
+        chunks = splitter.split_documents(pages)
+        vectordb = FAISS.from_documents(chunks, embeddings)
+        vectordb.save_local("faiss_index")
+
     return vectordb
+
 
 # Load vectorstore once
 vectordb = load_vectorstore()
