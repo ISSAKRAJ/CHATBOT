@@ -5,3 +5,5 @@ python-dotenv
 together
 sentence-transformers
 PyPDF2
+pypdf
+
