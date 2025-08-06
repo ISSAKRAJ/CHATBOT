@@ -6,7 +6,3 @@ together
 sentence-transformers
 PyPDF2
 pypdf
-<<<<<<< HEAD
-=======
-
->>>>>>> 89f739682c71e7d98ccd9c324ea1a0367156f906
